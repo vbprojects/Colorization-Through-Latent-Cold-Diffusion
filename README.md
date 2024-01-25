@@ -1,11 +1,19 @@
 The following is a capstone project done for the class DS 440 at Penn State University
 
+The project structure is as follows,
+
+VAE_Training.ipynb is the VQVAE training notebook
+
+colddif.ipynb is the Latent Cold Diffusion model training algorithm
+
+lcdm_sampling.ipynb is the results notebook
+
 # Introduction
 
 *Define the problem you are tackling, introduce the challenges, and provide an overview of your solution. State clearly what you are demonstrating, how, and provide a teaser of your results.*
 
 
-We seek to be able to recolor images through the use of Cold Diffusion in the Latent Space of a Variational Auto-Encoder (VAE). Challenges in this field are generally within implementation. Latent Space Recolorization models are novel as most methods have been Convolutional Neural Networks (CNN) working within the pixel space of an image. Using the latent space of a VAE lowers the computational cost of our training algorithm and extends possible training of the Cold Diffusion model on the embeddings of a better pre-trained VAE. While we tackle Image Colorization, our results may indicate that any semantic linear degradation (blur, noise, snowification, etc.) is possible to invert solely through transformations in latent spaces.
+We seek to be able to recolor images through the use of Cold Diffusion in the Latent Space of a Variational Auto-Encoder (VAE). Challenges in this field are generally within implementation. Latent Space Recolorization models are novel as most methods have been Convolutional Neural Networks (CNN) working within the pixel space of an image. Using the latent space of a VAE lowers the computational cost of our training algorithm and extends possible training of the Cold Diffusion model on the embeddings of a better pre-trained VAE. While we tackle Image Colorization, our results may indicate that many image degradations (blur, noise, snowification, etc.) are possible to invert solely through transformations in latent spaces.
 
 ![image](https://github.com/vbprojects/Colorization-Through-Latent-Cold-Diffusion/assets/66980754/edaf9c9f-93bb-4f72-8bf7-b7479d74bff6)
 
@@ -57,7 +65,7 @@ We trained the best VQ-VAE model we could based on time constraints, better VQ-V
 
 Our results are in line with the theoretical understanding of both VQ-VAEs and Cold Diffusion Models. VQ-VAE assembles a codebook of discrete features relating to an image and outputs that discrete codebook in the latent embedding. In the process of training, the model most likely picked up on the very clear semantic differences of colorized and grayscale images and some part of the codebook represents that. Thus, a small amount of the latent code would need to change in order to change the reconstruction of the image from grayscale to color. These small changes may make only a fraction of the full latent space. Further work should be done to identify parts of the embedding corresponding to colorization.
 
-Additionally, while seemingly counterintuitive, linear projection from one embedding to another is still a linear degradation, and a Cold Diffusion Model should be able to invert the transformation. Our choice of model is not standard but was easy to implement and fast to train. A U-Net architecture conditioned on timestep with sinusoidal embeddings would be closer to the State of the Art.
+Additionally, linear projection from one embedding to another is a linear degradation, and a Cold Diffusion Model should be able to invert the transformation. Our choice of model is not standard but was easy to implement and fast to train. A U-Net architecture conditioned on timestep with sinusoidal embeddings would be closer to the State of the Art.
 
 Moving forward, we need better evaluation metrics for image reconstruction. For example, Flechet Inception Distance. Furthermore, the VQ-VAE should be updated to a VQ-VAE 2 and a U-Net Architecture should be used instead of a Residual Dense Network for the Latent Cold Diffusion Model.
 
